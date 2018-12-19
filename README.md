@@ -1,63 +1,18 @@
-# TOC Project 2019
+# **計算理論期末PROJECT**
 
-Template Code for TOC Project 2019
+## **FSM的圖片**
+![](https://i.imgur.com/oZMEddz.png)
 
-A Facebook messenger bot based on a finite state machine
+### **說明**
 
-More details in the [Slides](https://hackmd.io/p/SkpBR-Yam#/) and [FAQ](https://hackmd.io/s/B1Xw7E8kN)
+* 一開始在start，輸入"開始使用"，會進入下一個state
+* 由於有設定postback，故會跳出兩個選項，對應到此圖的offer_find state 和 list state
+* offer_find 是用來讓使用者可以提供資料，若寵物走失或者發現流浪動物，皆可透過這邊來進行提供資料的動作
+* 發現寵物，填寫資料的部分，會要求使用者去選擇是什麼寵物(目前只有貓咪和狗狗這兩個選項)，接著會有基本的資料像是發現地點、發現該寵物的人的電話(讓該寵物的主人去聯絡發現寵物的人)、以及提供照片讓人去辨認(可選擇性填寫，因為)
+* 協尋寵物，填寫資料的部分，一樣會要求使用者去選擇協尋貓咪或狗狗，並且需要填寫協尋人的電話，且寵物走失的地點，並且必須提供走失寵物的照片(不像前面敘述的部分，因為協尋人若無提供走失貓狗照片，這個聊天機器人的實用性就很低)
+* 在list這個state，與前面不同，不是輸入資料的地方，而是查看目前有哪些資料，包含走失寵物清單與協尋寵物清單，協尋寵物和發現寵物的人可以透過這個清單，去鎖定是否已經有人刊登過
 
-## Setup
+### **額外的Bonus**
 
-### Prerequisite
-* Python 3
-* Facebook Page and App
-* HTTPS Server
-
-#### Install Dependency
-```sh
-pip3 install -r requirements.txt
-```
-
-* pygraphviz (For visualizing Finite State Machine)
-    * [Setup pygraphviz on Ubuntu](http://www.jianshu.com/p/a3da7ecc5303)
-
-#### Secret Data
-
-`VERIFY_TOKEN` and `ACCESS_TOKEN` **MUST** be set to proper values.
-Otherwise, you might not be able to run your code.
-
-#### Run Locally
-You can either setup https server or using `ngrok` as a proxy.
-
-**`ngrok` would be used in the following instruction**
-
-```sh
-./ngrok http 5000
-```
-
-After that, `ngrok` would generate a https URL.
-
-#### Run the sever
-
-```sh
-python3 app.py
-```
-
-## Finite State Machine
-![fsm](./img/show-fsm.png)
-
-## Usage
-The initial state is set to `user`.
-
-Every time `user` state is triggered to `advance` to another state, it will `go_back` to `user` state after the bot replies corresponding message.
-
-* user
-	* Input: "go to state1"
-		* Reply: "I'm entering state1"
-
-	* Input: "go to state2"
-		* Reply: "I'm entering state2"
-
-
-## Reference
-[TOC-Project-2017](https://github.com/Lee-W/TOC-Project-2017) ❤️ [@Lee-W](https://github.com/Lee-W)
+* 雖然沒有使用雲端的資料庫，但是使用了本地的記憶體，用來儲存資料，不選擇使用雲端資料庫的原因在於：會儲存在本機的資料皆為文字格式，故不會造成資源不足的問題
+* 使用Postback來取代輸入固定的選項，讓整個聊天機器人使用起來更流暢
